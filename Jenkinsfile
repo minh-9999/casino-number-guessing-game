@@ -13,7 +13,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                sh './build/casino_game' || echo "Test failed!"'
+                sh './build/casino_game || echo "Test failed!"'
                 sh './build/test_game > test_output.log'
                 archiveArtifacts artifacts: 'test_output.log', fingerprint: true
 
