@@ -25,9 +25,13 @@ pipeline {
                 // archiveArtifacts artifacts: 'casino_game.tar.gz', fingerprint: true
 
                 script {
-                    def version = sh(script: "date +%Y%m%d%H%M%S", returnStdout: true).trim()
-                    sh "tar -czf casino_game_${version}.tar.gz build/casino_game"
-                    archiveArtifacts artifacts: "casino_game_${version}.tar.gz", fingerprint: true
+                    def version = sh(script: "date +%Y%m%d_%H%M%S", returnStdout: true).trim()
+                    // sh "tar -czf casino_game_${version}.tar.gz build/casino_game"
+                    // archiveArtifacts artifacts: "casino_game_${version}.tar.gz", fingerprint: true
+                    def filename = "casino_game_${version}.tar.gz"
+                    echo "Created artifact: ${filename}"
+                    sh "tar -czf ${filename} build/casino_game"
+                    archiveArtifacts artifacts: "${filename}", fingerprint: true
                 }
             }
         }
